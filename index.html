@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Paloma Amaral — Engenharia de Software & Dados</title>
+    <title>Paloma Amaral — Soluções Digitais & Engenharia de Software</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -21,6 +21,26 @@
                     fontFamily: {
                         sans: ['Plus Jakarta Sans', 'sans-serif'],
                         mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    animation: {
+                        'blob': 'blob 7s infinite',
+                        'typewriter': 'typewriter 2s steps(40) 1s 1 normal both',
+                        'cursor': 'cursor .75s step-end infinite'
+                    },
+                    keyframes: {
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        },
+                        typewriter: {
+                            'from': { width: '0' },
+                            'to': { width: '100%' }
+                        },
+                        cursor: {
+                            '50%': { borderColor: 'transparent' }
+                        }
                     }
                 }
             }
@@ -31,34 +51,88 @@
             background-color: #050505;
             color: #fafafa;
             scroll-behavior: smooth;
+            overflow-x: hidden;
         }
-        /* Barra de rolagem refinada */
+
+        /* Background Grid Animado */
+        .bg-grid {
+            background-size: 50px 50px;
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
+            -webkit-mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
+            animation: pan 60s linear infinite;
+        }
+
+        @keyframes pan {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 100% 100%; }
+        }
+
+        /* Scrollbar */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #050505; }
         ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: #a855f7; }
 
         .glass-nav {
-            background: rgba(5, 5, 5, 0.9);
-            backdrop-filter: blur(16px);
+            background: rgba(5, 5, 5, 0.8);
+            backdrop-filter: blur(12px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
+        
         .hero-title {
             background: linear-gradient(135deg, #fff 40%, #a855f7 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        .card-premium {
-            background: var(--card);
-            border: 1px solid rgba(255,255,255,0.05);
-            transition: all 0.4s ease;
+
+        /* Efeito Spotlight (Brilho do Mouse) */
+        .spotlight-card {
+            position: relative;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            overflow: hidden;
         }
-        .card-premium:hover {
-            border-color: #a855f7;
-            transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.05);
-            box-shadow: 0 10px 40px -10px rgba(168, 85, 247, 0.2);
+        
+        .spotlight-card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(
+                800px circle at var(--mouse-x) var(--mouse-y),
+                rgba(168, 85, 247, 0.15),
+                transparent 40%
+            );
+            opacity: 0;
+            transition: opacity 0.5s;
+            pointer-events: none;
+            z-index: 1;
         }
+
+        .spotlight-card:hover::before {
+            opacity: 1;
+        }
+
+        .spotlight-card::after {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(
+                600px circle at var(--mouse-x) var(--mouse-y),
+                rgba(255, 255, 255, 0.4),
+                transparent 40%
+            );
+            opacity: 0;
+            z-index: 3;
+            pointer-events: none;
+        }
+        
+        /* Borda brilhante ao passar o mouse */
+        .spotlight-card:hover {
+            border-color: rgba(168, 85, 247, 0.5);
+        }
+
         .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
         .reveal.visible { opacity: 1; transform: translateY(0); }
         
@@ -73,85 +147,91 @@
         }
     </style>
 </head>
-<body class="antialiased selection:bg-purple-500 selection:text-white">
+<body class="antialiased selection:bg-purple-500 selection:text-white relative">
+
+<div class="fixed inset-0 z-[-1] bg-grid opacity-40"></div>
+<div class="fixed inset-0 z-[-2] bg-[#050505]"></div>
+
+<div class="fixed top-0 left-0 w-96 h-96 bg-purple-900/20 rounded-full blur-3xl mix-blend-screen filter opacity-30 animate-blob"></div>
+<div class="fixed bottom-0 right-0 w-96 h-96 bg-pink-900/20 rounded-full blur-3xl mix-blend-screen filter opacity-30 animate-blob animation-delay-2000"></div>
 
 <nav class="fixed w-full z-50 glass-nav px-6 py-4 transition-all duration-300">
     <div class="max-w-6xl mx-auto flex justify-between items-center">
-        <div class="text-base md:text-lg font-extrabold tracking-tighter hover:text-purple-400 transition cursor-pointer">
+        <div class="text-base md:text-lg font-extrabold tracking-tighter hover:text-purple-400 transition cursor-pointer z-50">
             PALOMA<span class="text-purple-500">.</span>AMARAL
         </div>
         
         <div class="hidden md:flex gap-8 text-[11px] font-bold tracking-widest uppercase text-slate-400">
             <a href="#sobre" class="hover:text-white transition py-2">Sobre</a>
-            <a href="#expertise" class="hover:text-white transition py-2">Expertise</a>
+            <a href="#expertise" class="hover:text-white transition py-2">Serviços</a>
             <a href="#metodologia" class="hover:text-white transition py-2">Método</a>
             <a href="#projetos" class="hover:text-white transition py-2">Projetos</a>
         </div>
 
-        <a href="https://wa.me/5516988725256" target="_blank" class="px-5 py-2 bg-purple-600 text-[10px] font-black tracking-wider rounded-md hover:bg-white hover:text-black transition-all shadow-lg shadow-purple-900/20">
+        <a href="https://wa.me/5516988725256" target="_blank" class="px-5 py-2 bg-purple-600 text-[10px] font-black tracking-wider rounded-md hover:bg-white hover:text-black transition-all shadow-lg shadow-purple-900/20 z-50">
             FALAR COMIGO
         </a>
     </div>
 </nav>
 
-<section class="min-h-screen flex flex-col justify-center px-6 pt-20 max-w-6xl mx-auto">
+<section class="min-h-screen flex flex-col justify-center px-6 pt-20 max-w-6xl mx-auto relative">
     <div class="reveal max-w-4xl">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-purple-500/30 bg-purple-500/10 mb-6">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-purple-500/30 bg-purple-500/10 mb-6 backdrop-blur-sm">
             <span class="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse"></span>
-            <span class="text-purple-300 font-mono text-[10px] tracking-widest uppercase">Disponível para Projetos</span>
+            <span class="text-purple-300 font-mono text-[10px] tracking-widest uppercase typing-effect border-r-2 border-purple-500 pr-1 animate-cursor">Sites • Sistemas • Dados • IA</span>
         </div>
         
-        <h1 class="text-4xl md:text-6xl font-black mb-6 leading-[1.1] hero-title tracking-tight">
-            Engenharia de Software<br>com DNA de Negócio.
+        <h1 class="text-4xl md:text-7xl font-black mb-6 leading-[1.1] hero-title tracking-tight">
+            Da Presença Digital<br>à Inteligência de Dados.
         </h1>
         
-        <p class="text-sm md:text-base text-slate-400 leading-relaxed mb-8 max-w-2xl font-light">
-            Não basta escrever código; é preciso entender o negócio. Com formação técnica em <strong>Desenvolvimento de Sistemas</strong> e <strong>Administração</strong>, crio soluções que unem a lógica da engenharia à eficiência financeira que sua empresa precisa.
+        <p class="text-sm md:text-lg text-slate-400 leading-relaxed mb-8 max-w-2xl font-light">
+            Desenvolvo desde <strong>sites institucionais e Landing Pages</strong> de alta conversão até <strong>sistemas complexos</strong> e automação de planilhas. Seja para colocar sua marca na internet ou organizar sua gestão, eu entrego a solução técnica ideal.
         </p>
         
         <div class="flex flex-wrap gap-4">
             <a href="#projetos" class="px-6 py-3 bg-white text-black text-xs font-bold rounded-lg hover:bg-purple-600 hover:text-white transition-all shadow-xl shadow-white/5 uppercase tracking-wide">
                 Ver Portfólio
             </a>
-            <a href="https://linkedin.com/in/palomadias028" target="_blank" class="px-6 py-3 border border-white/10 text-white text-xs font-bold rounded-lg hover:bg-white/5 transition-all uppercase tracking-wide">
-                LinkedIn Profile
+            <a href="https://wa.me/5516988725256" target="_blank" class="px-6 py-3 border border-white/10 text-white text-xs font-bold rounded-lg hover:bg-white/5 transition-all uppercase tracking-wide flex items-center gap-2 backdrop-blur-sm">
+                <i class="fab fa-whatsapp"></i> Orçamento Rápido
             </a>
         </div>
     </div>
 </section>
 
-<section id="sobre" class="py-20 px-6 border-t border-white/5">
+<section id="sobre" class="py-20 px-6 border-t border-white/5 bg-black/20 backdrop-blur-sm">
     <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-start">
         <div class="reveal">
             <h2 class="text-2xl md:text-3xl font-bold mb-6 text-white">Perfil Híbrido: Tech & Business</h2>
             <div class="space-y-4 text-slate-400 text-sm leading-7 text-justify">
                 <p>
-                    Minha conexão com a tecnologia começou cedo, muito antes da universidade. Sou formada como <strong>Técnica em Desenvolvimento de Sistemas</strong> (2020), onde consolidei minha base lógica e paixão por computadores. Mas percebi que apenas saber programar não era suficiente para resolver problemas reais.
+                    Minha conexão com a tecnologia começou cedo. Sou formada como <strong>Técnica em Desenvolvimento de Sistemas</strong> (2020), onde consolidei minha base lógica. Mas percebi que apenas saber programar não era suficiente; era preciso entender como as empresas lucram e operam.
                 </p>
                 <p>
-                    Busquei então o <strong>Técnico em Administração</strong> (2022). Atuando como consultora administrativa e financeira (PJ), vivenciei na prática os gargalos empresariais: processos manuais, falhas de fluxo de caixa e falta de dados para decisão.
+                    Busquei então o <strong>Técnico em Administração</strong> (2022). Atuando como consultora administrativa (PJ), vivenciei na prática os gargalos empresariais. Isso me deu a capacidade de criar soluções que não são apenas "código", mas ferramentas de lucro e organização.
                 </p>
                 <p>
-                    Hoje, como futura <strong>Engenheira de Software (UNAERP 2027)</strong>, unifico esses dois mundos. Não crio apenas software; desenvolvo ferramentas estratégicas, aplicando conceitos de <strong>Inteligência Artificial e Análise de Dados</strong> para automatizar o que é repetitivo e trazer inteligência para o financeiro.
+                    Hoje, como futura <strong>Engenheira de Software (UNAERP 2027)</strong>, atendo demandas variadas: desde colocar um site rápido no ar para um pequeno negócio até treinar modelos de <strong>Inteligência Artificial</strong> e automatizar planilhas complexas.
                 </p>
             </div>
         </div>
         
         <div class="reveal grid gap-4 content-start">
-            <div class="card-premium p-6 rounded-xl">
-                <h3 class="text-purple-400 font-bold text-[10px] tracking-widest uppercase mb-2">Formação Superior</h3>
-                <p class="text-white font-bold text-base">Bacharelado em Engenharia de Software</p>
-                <p class="text-slate-500 text-xs mt-1">UNAERP • Previsão 2027</p>
+            <div class="spotlight-card p-6 rounded-xl">
+                <h3 class="text-purple-400 font-bold text-[10px] tracking-widest uppercase mb-2 relative z-10">Formação Superior</h3>
+                <p class="text-white font-bold text-base relative z-10">Bacharelado em Engenharia de Software</p>
+                <p class="text-slate-500 text-xs mt-1 relative z-10">UNAERP • Previsão 2027</p>
             </div>
-            <div class="card-premium p-6 rounded-xl">
-                <h3 class="text-pink-400 font-bold text-[10px] tracking-widest uppercase mb-2">Base Técnica</h3>
-                <p class="text-white font-bold text-sm">Técnico em Desenvolvimento de Sistemas (2020)</p>
-                <p class="text-white font-bold text-sm mt-1">Técnico em Administração (2022)</p>
+            <div class="spotlight-card p-6 rounded-xl">
+                <h3 class="text-pink-400 font-bold text-[10px] tracking-widest uppercase mb-2 relative z-10">Base Técnica</h3>
+                <p class="text-white font-bold text-sm relative z-10">Técnico em Desenvolvimento de Sistemas (2020)</p>
+                <p class="text-white font-bold text-sm mt-1 relative z-10">Técnico em Administração (2022)</p>
             </div>
-            <div class="card-premium p-6 rounded-xl">
-                <h3 class="text-cyan-400 font-bold text-[10px] tracking-widest uppercase mb-2">Target & Estudos</h3>
-                <p class="text-white font-bold text-sm">Business Intelligence e Business Analytics com Data Science (PUCRS)</p>
-                <p class="text-slate-500 text-xs mt-1">Foco atual: Data Science & AI Strategy</p>
+            <div class="spotlight-card p-6 rounded-xl">
+                <h3 class="text-cyan-400 font-bold text-[10px] tracking-widest uppercase mb-2 relative z-10">Estudos Avançados</h3>
+                <p class="text-white font-bold text-sm relative z-10">Business Intelligence & Data Science</p>
+                <p class="text-slate-500 text-xs mt-1 relative z-10">Target: PUCRS • Foco em IA e Estratégia</p>
             </div>
         </div>
     </div>
@@ -160,57 +240,60 @@
 <section id="expertise" class="py-20 px-6 bg-neutral-900/30">
     <div class="max-w-6xl mx-auto">
         <div class="mb-10 reveal">
-            <span class="text-purple-500 font-mono text-xs tracking-widest uppercase">// Stack Tecnológico</span>
-            <h2 class="text-2xl md:text-3xl font-bold mt-2">Domínio Técnico & Estratégico</h2>
+            <span class="text-purple-500 font-mono text-xs tracking-widest uppercase">// Ferramentas & Serviços</span>
+            <h2 class="text-2xl md:text-3xl font-bold mt-2">Versatilidade Técnica</h2>
         </div>
 
         <div class="grid md:grid-cols-3 gap-6">
-            <div class="card-premium p-8 rounded-2xl reveal">
-                <div class="w-10 h-10 bg-purple-500/10 rounded-lg flex items-center justify-center mb-6 text-purple-400 text-xl">
-                    💻
+            <div class="spotlight-card p-8 rounded-2xl reveal">
+                <div class="w-10 h-10 bg-purple-500/10 rounded-lg flex items-center justify-center mb-6 text-purple-400 text-xl relative z-10">
+                    🌐
                 </div>
-                <h3 class="text-lg font-bold mb-4">Engenharia de Software</h3>
-                <ul class="space-y-3 text-sm text-slate-400">
-                    <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-purple-500 rounded-full"></span> React.js & Frontend Moderno</li>
-                    <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-purple-500 rounded-full"></span> Python (Backend & Scripts)</li>
-                    <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-purple-500 rounded-full"></span> SQL & Modelagem de Dados</li>
-                    <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-purple-500 rounded-full"></span> C / C++ (Fundamentos)</li>
-                    <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-purple-500 rounded-full"></span> Git & Versionamento</li>
+                <h3 class="text-lg font-bold mb-4 relative z-10">Web & Sites</h3>
+                <p class="text-xs text-slate-500 mb-4 h-10 relative z-10">Do site rápido em WordPress à aplicação web robusta.</p>
+                <ul class="space-y-3 text-sm text-slate-400 relative z-10">
+                    <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-purple-500 rounded-full"></span> Sites Institucionais & LPs</li>
+                    <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-purple-500 rounded-full"></span> WordPress / Elementor</li>
+                    <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-purple-500 rounded-full"></span> HTML5 / CSS3 / React.js</li>
+                    <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-purple-500 rounded-full"></span> Deploy (Vercel, Render, HostGator)</li>
+                    <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-purple-500 rounded-full"></span> Otimização (SEO & Performance)</li>
                 </ul>
             </div>
 
-            <div class="card-premium p-8 rounded-2xl reveal" style="transition-delay: 100ms;">
-                <div class="w-10 h-10 bg-pink-500/10 rounded-lg flex items-center justify-center mb-6 text-pink-400 text-xl">
-                    📊
+            <div class="spotlight-card p-8 rounded-2xl reveal" style="transition-delay: 100ms;">
+                <div class="w-10 h-10 bg-pink-500/10 rounded-lg flex items-center justify-center mb-6 text-pink-400 text-xl relative z-10">
+                    🤖
                 </div>
-                <h3 class="text-lg font-bold mb-4">Dados & BI</h3>
-                <ul class="space-y-3 text-sm text-slate-400">
-                    <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-pink-500 rounded-full"></span> Power BI Dashboards</li>
-                    <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-pink-500 rounded-full"></span> Pandas & Matplotlib</li>
-                    <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-pink-500 rounded-full"></span> Excel Avançado (VBA/Macros)</li>
-                    <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-pink-500 rounded-full"></span> Análise Estatística</li>
-                    <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-pink-500 rounded-full"></span> Relatórios Gerenciais</li>
+                <h3 class="text-lg font-bold mb-4 relative z-10">Dados & IA</h3>
+                <p class="text-xs text-slate-500 mb-4 h-10 relative z-10">Automação inteligente e análise de dados para decisão.</p>
+                <ul class="space-y-3 text-sm text-slate-400 relative z-10">
+                    <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-pink-500 rounded-full"></span> Treinamento/Fine-tuning de IA</li>
+                    <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-pink-500 rounded-full"></span> Planilhas Automatizadas (Excel)</li>
+                    <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-pink-500 rounded-full"></span> Power BI & Dashboards</li>
+                    <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-pink-500 rounded-full"></span> Python para Automação</li>
+                    <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-pink-500 rounded-full"></span> Integração com ChatGPT API</li>
                 </ul>
             </div>
 
-            <div class="card-premium p-8 rounded-2xl reveal" style="transition-delay: 200ms;">
-                <div class="w-10 h-10 bg-cyan-500/10 rounded-lg flex items-center justify-center mb-6 text-cyan-400 text-xl">
-                    💼
+            <div class="spotlight-card p-8 rounded-2xl reveal" style="transition-delay: 200ms;">
+                <div class="w-10 h-10 bg-cyan-500/10 rounded-lg flex items-center justify-center mb-6 text-cyan-400 text-xl relative z-10">
+                    ⚙️
                 </div>
-                <h3 class="text-lg font-bold mb-4">Visão de Negócio</h3>
-                <ul class="space-y-3 text-sm text-slate-400">
-                    <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-cyan-500 rounded-full"></span> Gestão Financeira (Fluxo de Caixa)</li>
-                    <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-cyan-500 rounded-full"></span> Regras de Negócio Complexas</li>
-                    <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-cyan-500 rounded-full"></span> Levantamento de Requisitos</li>
-                    <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-cyan-500 rounded-full"></span> Otimização de Processos (BPM)</li>
-                    <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-cyan-500 rounded-full"></span> Metodologias Ágeis (Scrum/XP)</li>
+                <h3 class="text-lg font-bold mb-4 relative z-10">Sistemas de Gestão</h3>
+                <p class="text-xs text-slate-500 mb-4 h-10 relative z-10">Softwares sob medida para organizar sua empresa.</p>
+                <ul class="space-y-3 text-sm text-slate-400 relative z-10">
+                    <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-cyan-500 rounded-full"></span> Sistemas Financeiros / OS</li>
+                    <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-cyan-500 rounded-full"></span> Gestão de Estoque</li>
+                    <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-cyan-500 rounded-full"></span> APIs & Integrações</li>
+                    <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-cyan-500 rounded-full"></span> Banco de Dados SQL</li>
+                    <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-cyan-500 rounded-full"></span> Painéis Administrativos</li>
                 </ul>
             </div>
         </div>
     </div>
 </section>
 
-<section id="metodologia" class="py-20 px-6 border-t border-white/5">
+<section id="metodologia" class="py-20 px-6 border-t border-white/5 bg-black/20 backdrop-blur-sm">
     <div class="max-w-6xl mx-auto">
         <div class="text-center mb-12 reveal">
             <h2 class="text-2xl md:text-3xl font-bold mb-4">Como eu trabalho</h2>
@@ -218,25 +301,25 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-4 gap-4 reveal">
-            <div class="p-6 border border-white/5 rounded-lg text-center hover:border-purple-500/50 transition bg-white/[0.02]">
-                <div class="text-2xl mb-3">🔍</div>
-                <h4 class="font-bold text-white mb-2 text-sm">1. Diagnóstico</h4>
-                <p class="text-[11px] text-slate-500 leading-relaxed">Entendo a dor do seu negócio, analiso os dados atuais e identifico onde a tecnologia pode gerar mais valor.</p>
+            <div class="spotlight-card p-6 rounded-lg text-center">
+                <div class="text-2xl mb-3 relative z-10">🔍</div>
+                <h4 class="font-bold text-white mb-2 text-sm relative z-10">1. Diagnóstico</h4>
+                <p class="text-[11px] text-slate-500 leading-relaxed relative z-10">Entendo a dor do seu negócio (seja um site novo ou um sistema complexo) e defino o melhor caminho.</p>
             </div>
-            <div class="p-6 border border-white/5 rounded-lg text-center hover:border-purple-500/50 transition bg-white/[0.02]">
-                <div class="text-2xl mb-3">📐</div>
-                <h4 class="font-bold text-white mb-2 text-sm">2. Estratégia</h4>
-                <p class="text-[11px] text-slate-500 leading-relaxed">Defino a arquitetura, escolho as tecnologias ideais (sem desperdício) e desenho o fluxo do usuário.</p>
+            <div class="spotlight-card p-6 rounded-lg text-center">
+                <div class="text-2xl mb-3 relative z-10">📐</div>
+                <h4 class="font-bold text-white mb-2 text-sm relative z-10">2. Estratégia</h4>
+                <p class="text-[11px] text-slate-500 leading-relaxed relative z-10">Defino a arquitetura e escolho as tecnologias ideais, seja WordPress para rapidez ou código puro para performance.</p>
             </div>
-            <div class="p-6 border border-white/5 rounded-lg text-center hover:border-purple-500/50 transition bg-white/[0.02]">
-                <div class="text-2xl mb-3">🔨</div>
-                <h4 class="font-bold text-white mb-2 text-sm">3. Desenvolvimento</h4>
-                <p class="text-[11px] text-slate-500 leading-relaxed">Programação focada em código limpo, escalável e seguro. Sprints ágeis com feedback constante.</p>
+            <div class="spotlight-card p-6 rounded-lg text-center">
+                <div class="text-2xl mb-3 relative z-10">🔨</div>
+                <h4 class="font-bold text-white mb-2 text-sm relative z-10">3. Execução</h4>
+                <p class="text-[11px] text-slate-500 leading-relaxed relative z-10">Desenvolvimento focado em qualidade, código limpo ou configuração profissional de plataformas.</p>
             </div>
-            <div class="p-6 border border-white/5 rounded-lg text-center hover:border-purple-500/50 transition bg-white/[0.02]">
-                <div class="text-2xl mb-3">🚀</div>
-                <h4 class="font-bold text-white mb-2 text-sm">4. Entrega</h4>
-                <p class="text-[11px] text-slate-500 leading-relaxed">Implantação, treinamento da equipe e suporte. O projeto só acaba quando o sistema gera resultado.</p>
+            <div class="spotlight-card p-6 rounded-lg text-center">
+                <div class="text-2xl mb-3 relative z-10">🚀</div>
+                <h4 class="font-bold text-white mb-2 text-sm relative z-10">4. Entrega</h4>
+                <p class="text-[11px] text-slate-500 leading-relaxed relative z-10">Implantação, publicação do site e treinamento. O projeto só acaba quando você está satisfeito.</p>
             </div>
         </div>
     </div>
@@ -252,76 +335,78 @@
             <p class="text-slate-500 text-xs text-right max-w-xs">Projetos reais com foco em ROI (Retorno sobre Investimento).</p>
         </div>
         
-        <div class="space-y-6">
-            <div class="card-premium p-8 rounded-2xl reveal group">
-                <div class="flex flex-col md:flex-row justify-between gap-6">
-                    <div class="flex-1">
-                        <div class="flex items-center gap-3 mb-4">
+        <div class="space-y-8">
+            <div class="spotlight-card p-6 md:p-8 rounded-2xl reveal group overflow-hidden">
+                <div class="flex flex-col lg:flex-row justify-between gap-8 items-center relative z-10">
+                    <div class="flex-1 order-2 lg:order-1">
+                        <div class="flex flex-wrap items-center gap-3 mb-4">
                             <h3 class="text-xl font-bold text-white group-hover:text-purple-400 transition">Sistema de Gestão de Ordens de Serviço</h3>
                             <span class="px-2 py-1 bg-purple-500/20 text-purple-300 text-[10px] font-bold uppercase rounded border border-purple-500/30">Case Privado</span>
                         </div>
                         <p class="text-slate-400 text-sm leading-relaxed mb-6">
-                            Desenvolvimento de um sistema completo para controle de fluxo operacional e financeiro. O software gerencia desde a abertura do chamado técnico até o faturamento final e emissão de notas fiscais.
+                            Desenvolvimento de um sistema completo para controle de fluxo operacional e financeiro. O software gerencia desde a abertura do chamado técnico até o faturamento final e emissão de notas fiscais, com dashboards para acompanhamento de métricas em tempo real.
                             <br><br>
                             <strong>Impacto:</strong> Otimização do fechamento de caixa e eliminação de erros na cobrança de clientes.
                         </p>
                         <div class="flex flex-wrap gap-2">
-                            <span class="tag-tech">Python</span>
+                            <span class="tag-tech">React.js</span>
+                            <span class="tag-tech">Python (Backend)</span>
                             <span class="tag-tech">SQL Database</span>
                             <span class="tag-tech">Automação Financeira</span>
-                            <span class="tag-tech">Regras de Negócio</span>
                         </div>
                     </div>
-                    <div class="w-full md:w-1/3 bg-white/5 rounded-xl overflow-hidden border border-white/5">
-                        <img src="images/projeto-os.png" alt="Sistema de Gestão de OS" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition duration-500 group-hover:scale-105">
+                    <div class="w-full lg:w-5/12 order-1 lg:order-2 rounded-xl overflow-hidden border border-white/10 shadow-2xl shadow-purple-900/20">
+                        <img src="images/projeto-os.png" alt="Tela do Sistema de Gestão de OS" class="w-full h-auto object-cover opacity-90 group-hover:opacity-100 transition duration-700 group-hover:scale-105 transform">
                     </div>
                 </div>
             </div>
 
-            <div class="card-premium p-8 rounded-2xl reveal group">
-                <div class="flex flex-col md:flex-row justify-between gap-6">
-                    <div class="flex-1">
-                        <div class="flex items-center gap-3 mb-4">
+            <div class="spotlight-card p-6 md:p-8 rounded-2xl reveal group overflow-hidden">
+                <div class="flex flex-col lg:flex-row justify-between gap-8 items-center relative z-10">
+                    <div class="flex-1 order-2 lg:order-1">
+                        <div class="flex flex-wrap items-center gap-3 mb-4">
                             <h3 class="text-xl font-bold text-white group-hover:text-pink-400 transition">Dashboards & Automação de Dados</h3>
                             <span class="px-2 py-1 bg-pink-500/20 text-pink-300 text-[10px] font-bold uppercase rounded border border-pink-500/30">Business Intelligence</span>
                         </div>
                         <p class="text-slate-400 text-sm leading-relaxed mb-6">
-                            Criação de scripts em Python para automatizar a extração e tratamento de dados financeiros, alimentando dashboards interativos no Power BI para suporte à decisão gerencial.
+                            Criação de scripts em Python para automatizar a extração e tratamento de dados financeiros complexos, alimentando dashboards interativos no Power BI para suporte à decisão gerencial estratégica.
                             <br><br>
-                            <strong>Impacto:</strong> Transformação de planilhas estáticas em painéis dinâmicos para análise de margem de lucro.
+                            <strong>Impacto:</strong> Transformação de planilhas estáticas e dispersas em painéis dinâmicos e centralizados para análise de margem de lucro.
                         </p>
                         <div class="flex flex-wrap gap-2">
                             <span class="tag-tech">Python (Pandas)</span>
                             <span class="tag-tech">Power BI</span>
-                            <span class="tag-tech">ETL</span>
-                            <span class="tag-tech">Excel Avançado</span>
+                            <span class="tag-tech">ETL (Extração e Carga)</span>
+                            <span class="tag-tech">Análise de Dados</span>
                         </div>
                     </div>
-                    <div class="w-full md:w-1/3 bg-white/5 rounded-xl overflow-hidden border border-white/5">
-                        <img src="images/projeto-bi.png" alt="Dashboard de BI" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition duration-500 group-hover:scale-105">
+                    <div class="w-full lg:w-5/12 order-1 lg:order-2 rounded-xl overflow-hidden border border-white/10 shadow-2xl shadow-pink-900/20">
+                        <img src="images/projeto-bi.png" alt="Dashboard de Business Intelligence" class="w-full h-auto object-cover opacity-90 group-hover:opacity-100 transition duration-700 group-hover:scale-105 transform">
                     </div>
                 </div>
             </div>
 
-             <div class="card-premium p-8 rounded-2xl reveal group">
-                <div class="flex flex-col md:flex-row justify-between gap-6">
-                    <div class="flex-1">
-                        <div class="flex items-center gap-3 mb-4">
-                            <h3 class="text-xl font-bold text-white group-hover:text-cyan-400 transition">Interfaces Web de Alta Performance</h3>
-                            <span class="px-2 py-1 bg-cyan-500/20 text-cyan-300 text-[10px] font-bold uppercase rounded border border-cyan-500/30">Frontend</span>
+             <div class="spotlight-card p-6 md:p-8 rounded-2xl reveal group overflow-hidden">
+                <div class="flex flex-col lg:flex-row justify-between gap-8 items-center relative z-10">
+                    <div class="flex-1 order-2 lg:order-1">
+                        <div class="flex flex-wrap items-center gap-3 mb-4">
+                            <h3 class="text-xl font-bold text-white group-hover:text-cyan-400 transition">Sites Institucionais & Landing Pages</h3>
+                            <span class="px-2 py-1 bg-cyan-500/20 text-cyan-300 text-[10px] font-bold uppercase rounded border border-cyan-500/30">Presença Digital</span>
                         </div>
                         <p class="text-slate-400 text-sm leading-relaxed mb-6">
-                            Desenvolvimento de Landing Pages institucionais focadas em conversão e velocidade. Projetos desenvolvidos com foco em SEO, responsividade (mobile-first) e design moderno.
+                            Criação de sites modernos para empresas e profissionais liberais. Desde <strong>Landing Pages</strong> focadas em vendas até portais em <strong>WordPress</strong> gerenciáveis.
+                            <br><br>
+                            Entrego o site completo: hospedado (HostGator, Vercel ou Render), com domínio configurado e otimizado para aparecer no Google (SEO).
                         </p>
                         <div class="flex flex-wrap gap-2">
+                            <span class="tag-tech">WordPress / Elementor</span>
                             <span class="tag-tech">HTML5 / CSS3</span>
-                            <span class="tag-tech">Tailwind CSS</span>
-                            <span class="tag-tech">UI / UX Design</span>
-                            <span class="tag-tech">Responsividade</span>
+                            <span class="tag-tech">Deploy & Hospedagem</span>
+                            <span class="tag-tech">SEO</span>
                         </div>
                     </div>
-                    <div class="w-full md:w-1/3 bg-white/5 rounded-xl overflow-hidden border border-white/5">
-                        <img src="images/projeto-web.png" alt="Interface Web Responsiva" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition duration-500 group-hover:scale-105">
+                    <div class="w-full lg:w-5/12 order-1 lg:order-2 rounded-xl overflow-hidden border border-white/10 shadow-2xl shadow-cyan-900/20">
+                        <img src="images/projeto-web.png" alt="Mockup de Site Responsivo" class="w-full h-auto object-cover opacity-90 group-hover:opacity-100 transition duration-700 group-hover:scale-105 transform">
                     </div>
                 </div>
             </div>
@@ -329,7 +414,7 @@
     </div>
 </section>
 
-<footer class="py-20 px-6 text-center border-t border-white/5 bg-gradient-to-b from-transparent to-purple-900/10">
+<footer class="py-20 px-6 text-center border-t border-white/5 bg-gradient-to-b from-transparent to-purple-900/10 backdrop-blur-sm">
     <div class="reveal max-w-3xl mx-auto">
         <h2 class="text-3xl md:text-5xl font-black mb-8 tracking-tight text-white">Pronta para transformar seu negócio?</h2>
         <p class="text-slate-400 mb-10 text-sm md:text-base">
@@ -348,11 +433,25 @@
 </footer>
 
 <script>
-    // Animação de entrada suave
+    // 1. Efeito de Entrada Suave (Scroll Reveal)
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
     }, { threshold: 0.1 });
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // 2. Efeito Spotlight (Brilho que segue o mouse)
+    const cards = document.querySelectorAll(".spotlight-card");
+    
+    document.body.onmousemove = (e) => {
+        for(const card of cards) {
+            const rect = card.getBoundingClientRect(),
+            x = e.clientX - rect.left,
+            y = e.clientY - rect.top;
+
+            card.style.setProperty("--mouse-x", `${x}px`);
+            card.style.setProperty("--mouse-y", `${y}px`);
+        };
+    }
 </script>
 
 </body>
