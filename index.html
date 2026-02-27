@@ -24,7 +24,6 @@
                     },
                     animation: {
                         'blob': 'blob 7s infinite',
-                        'typewriter': 'typewriter 2s steps(40) 1s 1 normal both',
                         'cursor': 'cursor .75s step-end infinite'
                     },
                     keyframes: {
@@ -33,10 +32,6 @@
                             '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
                             '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
                             '100%': { transform: 'translate(0px, 0px) scale(1)' },
-                        },
-                        typewriter: {
-                            'from': { width: '0' },
-                            'to': { width: '100%' }
                         },
                         cursor: {
                             '50%': { borderColor: 'transparent' }
@@ -93,6 +88,7 @@
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid rgba(255, 255, 255, 0.05);
             overflow: hidden;
+            transition: transform 0.3s ease;
         }
         
         .spotlight-card::before {
@@ -113,24 +109,11 @@
         .spotlight-card:hover::before {
             opacity: 1;
         }
-
-        .spotlight-card::after {
-            content: "";
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: radial-gradient(
-                600px circle at var(--mouse-x) var(--mouse-y),
-                rgba(255, 255, 255, 0.4),
-                transparent 40%
-            );
-            opacity: 0;
-            z-index: 3;
-            pointer-events: none;
-        }
         
         /* Borda brilhante ao passar o mouse */
         .spotlight-card:hover {
             border-color: rgba(168, 85, 247, 0.5);
+            transform: translateY(-5px);
         }
 
         .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
@@ -144,6 +127,14 @@
             color: #d8b4fe;
             border-radius: 4px;
             border: 1px solid rgba(168, 85, 247, 0.2);
+        }
+
+        .section-badge {
+            color: #a855f7; 
+            font-family: 'JetBrains Mono', monospace; 
+            font-size: 0.75rem; 
+            letter-spacing: 0.1em; 
+            text-transform: uppercase;
         }
     </style>
 </head>
@@ -163,9 +154,9 @@
         
         <div class="hidden md:flex gap-8 text-[11px] font-bold tracking-widest uppercase text-slate-400">
             <a href="#sobre" class="hover:text-white transition py-2">Sobre</a>
-            <a href="#expertise" class="hover:text-white transition py-2">Serviços</a>
-            <a href="#metodologia" class="hover:text-white transition py-2">Método</a>
+            <a href="#expertise" class="hover:text-white transition py-2">Expertise</a>
             <a href="#projetos" class="hover:text-white transition py-2">Projetos</a>
+            <a href="#lab" class="hover:text-white transition py-2">Laboratório</a>
         </div>
 
         <a href="https://wa.me/5516988725256" target="_blank" class="px-5 py-2 bg-purple-600 text-[10px] font-black tracking-wider rounded-md hover:bg-white hover:text-black transition-all shadow-lg shadow-purple-900/20 z-50">
@@ -193,8 +184,8 @@
             <a href="#projetos" class="px-6 py-3 bg-white text-black text-xs font-bold rounded-lg hover:bg-purple-600 hover:text-white transition-all shadow-xl shadow-white/5 uppercase tracking-wide">
                 Ver Portfólio
             </a>
-            <a href="https://wa.me/5516988725256" target="_blank" class="px-6 py-3 border border-white/10 text-white text-xs font-bold rounded-lg hover:bg-white/5 transition-all uppercase tracking-wide flex items-center gap-2 backdrop-blur-sm">
-                <i class="fab fa-whatsapp"></i> Orçamento Rápido
+            <a href="https://linkedin.com/in/palomadias028" target="_blank" class="px-6 py-3 border border-white/10 text-white text-xs font-bold rounded-lg hover:bg-white/5 transition-all uppercase tracking-wide flex items-center gap-2 backdrop-blur-sm">
+                <i class="fab fa-linkedin"></i> Perfil LinkedIn
             </a>
         </div>
     </div>
@@ -203,16 +194,16 @@
 <section id="sobre" class="py-20 px-6 border-t border-white/5 bg-black/20 backdrop-blur-sm">
     <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-start">
         <div class="reveal">
-            <h2 class="text-2xl md:text-3xl font-bold mb-6 text-white">Perfil Híbrido: Tech & Business</h2>
+            <h2 class="text-2xl md:text-3xl font-bold mb-6 text-white">DNA Híbrido: Gestão & Código</h2>
             <div class="space-y-4 text-slate-400 text-sm leading-7 text-justify">
                 <p>
-                    Minha conexão com a tecnologia começou cedo. Sou formada como <strong>Técnica em Desenvolvimento de Sistemas</strong> (2020), onde consolidei minha base lógica. Mas percebi que apenas saber programar não era suficiente; era preciso entender como as empresas lucram e operam.
+                    Minha jornada técnica começou cedo, com o curso de <strong>Técnico em Desenvolvimento de Sistemas (2020)</strong>. Porém, entendi que para criar softwares úteis, eu precisava dominar as regras do jogo empresarial.
                 </p>
                 <p>
-                    Busquei então o <strong>Técnico em Administração</strong> (2022). Atuando como consultora administrativa (PJ), vivenciei na prática os gargalos empresariais. Isso me deu a capacidade de criar soluções que não são apenas "código", mas ferramentas de lucro e organização.
+                    No meu dia a dia como <strong>Consultora Financeira (PJ)</strong>, não fico apenas na teoria. Trabalho ativamente na conciliação bancária, gestão de contratos, controle rigoroso de fluxo de caixa e interface direta com a contabilidade. Sei exatamente onde os processos manuais falham e geram prejuízo.
                 </p>
                 <p>
-                    Hoje, como futura <strong>Engenheira de Software (UNAERP 2027)</strong>, atendo demandas variadas: desde colocar um site rápido no ar para um pequeno negócio até treinar modelos de <strong>Inteligência Artificial</strong> e automatizar planilhas complexas.
+                    Hoje, uno essa vivência prática à <strong>Engenharia de Software</strong>. Desenvolvo ferramentas que resolvem dores reais: do site que traz clientes ao sistema que organiza o financeiro. Meu próximo passo é aprofundar esse conhecimento com Mestrado em Tecnologia & Negócios.
                 </p>
             </div>
         </div>
@@ -223,15 +214,20 @@
                 <p class="text-white font-bold text-base relative z-10">Bacharelado em Engenharia de Software</p>
                 <p class="text-slate-500 text-xs mt-1 relative z-10">UNAERP • Previsão 2027</p>
             </div>
+            
             <div class="spotlight-card p-6 rounded-xl">
-                <h3 class="text-pink-400 font-bold text-[10px] tracking-widest uppercase mb-2 relative z-10">Base Técnica</h3>
-                <p class="text-white font-bold text-sm relative z-10">Técnico em Desenvolvimento de Sistemas (2020)</p>
-                <p class="text-white font-bold text-sm mt-1 relative z-10">Técnico em Administração (2022)</p>
+                <h3 class="text-cyan-400 font-bold text-[10px] tracking-widest uppercase mb-2 relative z-10">Interesse Acadêmico Futuro</h3>
+                <p class="text-white font-bold text-sm relative z-10">Mestrado em Tech & Business</p>
+                <p class="text-slate-500 text-xs mt-1 relative z-10">Foco: Data Science aplicadada a Negócios (Target: PUCRS)</p>
             </div>
+
             <div class="spotlight-card p-6 rounded-xl">
-                <h3 class="text-cyan-400 font-bold text-[10px] tracking-widest uppercase mb-2 relative z-10">Estudos Avançados</h3>
-                <p class="text-white font-bold text-sm relative z-10">Business Intelligence & Data Science</p>
-                <p class="text-slate-500 text-xs mt-1 relative z-10">Target: PUCRS • Foco em IA e Estratégia</p>
+                <h3 class="text-pink-400 font-bold text-[10px] tracking-widest uppercase mb-2 relative z-10">Experiência de Campo (PJ)</h3>
+                <ul class="text-slate-400 text-xs space-y-2 relative z-10">
+                    <li>• Conciliação Financeira & Fluxo de Caixa</li>
+                    <li>• Gestão de Contratos e Orçamentos</li>
+                    <li>• Apoio à Contabilidade e Emissão de Notas</li>
+                </ul>
             </div>
         </div>
     </div>
@@ -240,8 +236,8 @@
 <section id="expertise" class="py-20 px-6 bg-neutral-900/30">
     <div class="max-w-6xl mx-auto">
         <div class="mb-10 reveal">
-            <span class="text-purple-500 font-mono text-xs tracking-widest uppercase">// Ferramentas & Serviços</span>
-            <h2 class="text-2xl md:text-3xl font-bold mt-2">Versatilidade Técnica</h2>
+            <span class="section-badge">// O que posso fazer por você</span>
+            <h2 class="text-2xl md:text-3xl font-bold mt-2">Soluções para o seu Momento</h2>
         </div>
 
         <div class="grid md:grid-cols-3 gap-6">
@@ -250,28 +246,26 @@
                     🌐
                 </div>
                 <h3 class="text-lg font-bold mb-4 relative z-10">Web & Sites</h3>
-                <p class="text-xs text-slate-500 mb-4 h-10 relative z-10">Do site rápido em WordPress à aplicação web robusta.</p>
+                <p class="text-xs text-slate-500 mb-4 h-10 relative z-10">Para quem precisa aparecer no mercado com profissionalismo.</p>
                 <ul class="space-y-3 text-sm text-slate-400 relative z-10">
-                    <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-purple-500 rounded-full"></span> Sites Institucionais & LPs</li>
-                    <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-purple-500 rounded-full"></span> WordPress / Elementor</li>
-                    <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-purple-500 rounded-full"></span> HTML5 / CSS3 / React.js</li>
-                    <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-purple-500 rounded-full"></span> Deploy (Vercel, Render, HostGator)</li>
-                    <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-purple-500 rounded-full"></span> Otimização (SEO & Performance)</li>
+                    <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-purple-500 rounded-full"></span> Sites Institucionais</li>
+                    <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-purple-500 rounded-full"></span> Landing Pages de Venda</li>
+                    <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-purple-500 rounded-full"></span> Portfólios Online</li>
+                    <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-purple-500 rounded-full"></span> Configuração de Domínio/Hospedagem</li>
                 </ul>
             </div>
 
             <div class="spotlight-card p-8 rounded-2xl reveal" style="transition-delay: 100ms;">
                 <div class="w-10 h-10 bg-pink-500/10 rounded-lg flex items-center justify-center mb-6 text-pink-400 text-xl relative z-10">
-                    🤖
+                    📊
                 </div>
-                <h3 class="text-lg font-bold mb-4 relative z-10">Dados & IA</h3>
-                <p class="text-xs text-slate-500 mb-4 h-10 relative z-10">Automação inteligente e análise de dados para decisão.</p>
+                <h3 class="text-lg font-bold mb-4 relative z-10">Dados & Controle</h3>
+                <p class="text-xs text-slate-500 mb-4 h-10 relative z-10">Para quem precisa organizar a casa e parar de perder dinheiro.</p>
                 <ul class="space-y-3 text-sm text-slate-400 relative z-10">
-                    <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-pink-500 rounded-full"></span> Treinamento/Fine-tuning de IA</li>
                     <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-pink-500 rounded-full"></span> Planilhas Automatizadas (Excel)</li>
-                    <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-pink-500 rounded-full"></span> Power BI & Dashboards</li>
-                    <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-pink-500 rounded-full"></span> Python para Automação</li>
-                    <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-pink-500 rounded-full"></span> Integração com ChatGPT API</li>
+                    <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-pink-500 rounded-full"></span> Dashboards Financeiros</li>
+                    <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-pink-500 rounded-full"></span> Organização de Fluxo de Caixa</li>
+                    <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-pink-500 rounded-full"></span> Automação de Relatórios</li>
                 </ul>
             </div>
 
@@ -279,47 +273,14 @@
                 <div class="w-10 h-10 bg-cyan-500/10 rounded-lg flex items-center justify-center mb-6 text-cyan-400 text-xl relative z-10">
                     ⚙️
                 </div>
-                <h3 class="text-lg font-bold mb-4 relative z-10">Sistemas de Gestão</h3>
-                <p class="text-xs text-slate-500 mb-4 h-10 relative z-10">Softwares sob medida para organizar sua empresa.</p>
+                <h3 class="text-lg font-bold mb-4 relative z-10">Sistemas Sob Medida</h3>
+                <p class="text-xs text-slate-500 mb-4 h-10 relative z-10">Para quem cresceu e precisa de um software próprio.</p>
                 <ul class="space-y-3 text-sm text-slate-400 relative z-10">
-                    <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-cyan-500 rounded-full"></span> Sistemas Financeiros / OS</li>
-                    <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-cyan-500 rounded-full"></span> Gestão de Estoque</li>
-                    <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-cyan-500 rounded-full"></span> APIs & Integrações</li>
+                    <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-cyan-500 rounded-full"></span> Gestão de Ordens de Serviço</li>
+                    <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-cyan-500 rounded-full"></span> Controle de Estoque/Vendas</li>
+                    <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-cyan-500 rounded-full"></span> Integração entre Sistemas</li>
                     <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-cyan-500 rounded-full"></span> Banco de Dados SQL</li>
-                    <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-cyan-500 rounded-full"></span> Painéis Administrativos</li>
                 </ul>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section id="metodologia" class="py-20 px-6 border-t border-white/5 bg-black/20 backdrop-blur-sm">
-    <div class="max-w-6xl mx-auto">
-        <div class="text-center mb-12 reveal">
-            <h2 class="text-2xl md:text-3xl font-bold mb-4">Como eu trabalho</h2>
-            <p class="text-slate-400 text-sm max-w-xl mx-auto">Não vendo apenas software, vendo a solução do problema. Meu processo garante que o resultado final esteja alinhado com a necessidade do seu negócio.</p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 reveal">
-            <div class="spotlight-card p-6 rounded-lg text-center">
-                <div class="text-2xl mb-3 relative z-10">🔍</div>
-                <h4 class="font-bold text-white mb-2 text-sm relative z-10">1. Diagnóstico</h4>
-                <p class="text-[11px] text-slate-500 leading-relaxed relative z-10">Entendo a dor do seu negócio (seja um site novo ou um sistema complexo) e defino o melhor caminho.</p>
-            </div>
-            <div class="spotlight-card p-6 rounded-lg text-center">
-                <div class="text-2xl mb-3 relative z-10">📐</div>
-                <h4 class="font-bold text-white mb-2 text-sm relative z-10">2. Estratégia</h4>
-                <p class="text-[11px] text-slate-500 leading-relaxed relative z-10">Defino a arquitetura e escolho as tecnologias ideais, seja WordPress para rapidez ou código puro para performance.</p>
-            </div>
-            <div class="spotlight-card p-6 rounded-lg text-center">
-                <div class="text-2xl mb-3 relative z-10">🔨</div>
-                <h4 class="font-bold text-white mb-2 text-sm relative z-10">3. Execução</h4>
-                <p class="text-[11px] text-slate-500 leading-relaxed relative z-10">Desenvolvimento focado em qualidade, código limpo ou configuração profissional de plataformas.</p>
-            </div>
-            <div class="spotlight-card p-6 rounded-lg text-center">
-                <div class="text-2xl mb-3 relative z-10">🚀</div>
-                <h4 class="font-bold text-white mb-2 text-sm relative z-10">4. Entrega</h4>
-                <p class="text-[11px] text-slate-500 leading-relaxed relative z-10">Implantação, publicação do site e treinamento. O projeto só acaba quando você está satisfeito.</p>
             </div>
         </div>
     </div>
@@ -329,10 +290,10 @@
     <div class="max-w-6xl mx-auto">
         <div class="mb-10 reveal flex flex-col md:flex-row justify-between items-end gap-4">
             <div>
-                <span class="text-purple-500 font-mono text-xs tracking-widest uppercase">// Portfólio Selecionado</span>
-                <h2 class="text-2xl md:text-3xl font-bold mt-2">Soluções Desenvolvidas</h2>
+                <span class="section-badge">// Portfólio Selecionado</span>
+                <h2 class="text-2xl md:text-3xl font-bold mt-2">Cases Reais</h2>
             </div>
-            <p class="text-slate-500 text-xs text-right max-w-xs">Projetos reais com foco em ROI (Retorno sobre Investimento).</p>
+            <p class="text-slate-500 text-xs text-right max-w-xs">Foco em eficiência operacional e clareza de dados.</p>
         </div>
         
         <div class="space-y-8">
@@ -340,19 +301,19 @@
                 <div class="flex flex-col lg:flex-row justify-between gap-8 items-center relative z-10">
                     <div class="flex-1 order-2 lg:order-1">
                         <div class="flex flex-wrap items-center gap-3 mb-4">
-                            <h3 class="text-xl font-bold text-white group-hover:text-purple-400 transition">Sistema de Gestão de Ordens de Serviço</h3>
+                            <h3 class="text-xl font-bold text-white group-hover:text-purple-400 transition">Gerenciador de Ordens de Serviço</h3>
                             <span class="px-2 py-1 bg-purple-500/20 text-purple-300 text-[10px] font-bold uppercase rounded border border-purple-500/30">Case Privado</span>
                         </div>
                         <p class="text-slate-400 text-sm leading-relaxed mb-6">
-                            Desenvolvimento de um sistema completo para controle de fluxo operacional e financeiro. O software gerencia desde a abertura do chamado técnico até o faturamento final e emissão de notas fiscais, com dashboards para acompanhamento de métricas em tempo real.
+                            Um sistema completo para gerenciar o ciclo de vida do atendimento. O fluxo começa no <strong>relato do problema</strong> pelo cliente, passa pela alocação de técnicos e peças, gera a Ordem Técnica e finaliza com o orçamento e emissão da Nota Fiscal.
                             <br><br>
-                            <strong>Impacto:</strong> Otimização do fechamento de caixa e eliminação de erros na cobrança de clientes.
+                            <strong>Diferencial:</strong> Controle unificado de peças, mão de obra e histórico do cliente em um só lugar.
                         </p>
                         <div class="flex flex-wrap gap-2">
                             <span class="tag-tech">React.js</span>
-                            <span class="tag-tech">Python (Backend)</span>
-                            <span class="tag-tech">SQL Database</span>
-                            <span class="tag-tech">Automação Financeira</span>
+                            <span class="tag-tech">Python</span>
+                            <span class="tag-tech">Gestão de Estoque</span>
+                            <span class="tag-tech">Faturamento</span>
                         </div>
                     </div>
                     <div class="w-full lg:w-5/12 order-1 lg:order-2 rounded-xl overflow-hidden border border-white/10 shadow-2xl shadow-purple-900/20">
@@ -365,44 +326,17 @@
                 <div class="flex flex-col lg:flex-row justify-between gap-8 items-center relative z-10">
                     <div class="flex-1 order-2 lg:order-1">
                         <div class="flex flex-wrap items-center gap-3 mb-4">
-                            <h3 class="text-xl font-bold text-white group-hover:text-pink-400 transition">Dashboards & Automação de Dados</h3>
-                            <span class="px-2 py-1 bg-pink-500/20 text-pink-300 text-[10px] font-bold uppercase rounded border border-pink-500/30">Business Intelligence</span>
-                        </div>
-                        <p class="text-slate-400 text-sm leading-relaxed mb-6">
-                            Criação de scripts em Python para automatizar a extração e tratamento de dados financeiros complexos, alimentando dashboards interativos no Power BI para suporte à decisão gerencial estratégica.
-                            <br><br>
-                            <strong>Impacto:</strong> Transformação de planilhas estáticas e dispersas em painéis dinâmicos e centralizados para análise de margem de lucro.
-                        </p>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="tag-tech">Python (Pandas)</span>
-                            <span class="tag-tech">Power BI</span>
-                            <span class="tag-tech">ETL (Extração e Carga)</span>
-                            <span class="tag-tech">Análise de Dados</span>
-                        </div>
-                    </div>
-                    <div class="w-full lg:w-5/12 order-1 lg:order-2 rounded-xl overflow-hidden border border-white/10 shadow-2xl shadow-pink-900/20">
-                        <img src="images/projeto-bi.png" alt="Dashboard de Business Intelligence" class="w-full h-auto object-cover opacity-90 group-hover:opacity-100 transition duration-700 group-hover:scale-105 transform">
-                    </div>
-                </div>
-            </div>
-
-             <div class="spotlight-card p-6 md:p-8 rounded-2xl reveal group overflow-hidden">
-                <div class="flex flex-col lg:flex-row justify-between gap-8 items-center relative z-10">
-                    <div class="flex-1 order-2 lg:order-1">
-                        <div class="flex flex-wrap items-center gap-3 mb-4">
                             <h3 class="text-xl font-bold text-white group-hover:text-cyan-400 transition">Sites Institucionais & Landing Pages</h3>
-                            <span class="px-2 py-1 bg-cyan-500/20 text-cyan-300 text-[10px] font-bold uppercase rounded border border-cyan-500/30">Presença Digital</span>
+                            <span class="px-2 py-1 bg-cyan-500/20 text-cyan-300 text-[10px] font-bold uppercase rounded border border-cyan-500/30">Web Design</span>
                         </div>
                         <p class="text-slate-400 text-sm leading-relaxed mb-6">
-                            Criação de sites modernos para empresas e profissionais liberais. Desde <strong>Landing Pages</strong> focadas em vendas até portais em <strong>WordPress</strong> gerenciáveis.
-                            <br><br>
-                            Entrego o site completo: hospedado (HostGator, Vercel ou Render), com domínio configurado e otimizado para aparecer no Google (SEO).
+                            Criação de identidade digital para empresas. Desenvolvimento de sites rápidos, responsivos (funcionam no celular) e prontos para aparecer no Google. Foco em converter visitantes em clientes através de design estratégico.
                         </p>
                         <div class="flex flex-wrap gap-2">
-                            <span class="tag-tech">WordPress / Elementor</span>
-                            <span class="tag-tech">HTML5 / CSS3</span>
-                            <span class="tag-tech">Deploy & Hospedagem</span>
+                            <span class="tag-tech">WordPress</span>
+                            <span class="tag-tech">HTML/CSS</span>
                             <span class="tag-tech">SEO</span>
+                            <span class="tag-tech">Responsivo</span>
                         </div>
                     </div>
                     <div class="w-full lg:w-5/12 order-1 lg:order-2 rounded-xl overflow-hidden border border-white/10 shadow-2xl shadow-cyan-900/20">
@@ -414,11 +348,56 @@
     </div>
 </section>
 
+<section id="lab" class="py-20 px-6 border-t border-white/5 bg-black/40 backdrop-blur-sm">
+    <div class="max-w-6xl mx-auto">
+        <div class="mb-10 reveal text-center">
+            <span class="section-badge">// Laboratório de Inovação</span>
+            <h2 class="text-2xl md:text-3xl font-bold mt-2 text-white">Projetos em Desenvolvimento</h2>
+            <p class="text-slate-400 text-sm mt-4 max-w-2xl mx-auto">
+                Além dos trabalhos comerciais, mantenho projetos internos para testar novas tecnologias e antecipar tendências de mercado.
+                <br>Estes são os próximos lançamentos do meu portfólio:
+            </p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8 reveal">
+            <div class="spotlight-card p-6 rounded-2xl border-t-4 border-t-pink-500">
+                <div class="text-4xl mb-4">📈</div>
+                <h3 class="text-lg font-bold text-white mb-2 relative z-10">Monitor de Saúde Financeira</h3>
+                <p class="text-xs text-slate-400 mb-4 leading-relaxed relative z-10">
+                    <strong>O Problema:</strong> Pequenos empresários não sabem categorizar gastos.
+                    <br><strong>A Solução:</strong> Um dashboard que importa o extrato bancário e usa Python para categorizar despesas automaticamente, gerando alertas de fluxo de caixa.
+                </p>
+                <span class="tag-tech border-pink-500/30 text-pink-300">Em Breve: Dados & Automação</span>
+            </div>
+
+            <div class="spotlight-card p-6 rounded-2xl border-t-4 border-t-cyan-500">
+                <div class="text-4xl mb-4">💬</div>
+                <h3 class="text-lg font-bold text-white mb-2 relative z-10">Bot de Orçamento via WhatsApp</h3>
+                <p class="text-xs text-slate-400 mb-4 leading-relaxed relative z-10">
+                    <strong>O Problema:</strong> Perda de tempo respondendo sempre as mesmas dúvidas.
+                    <br><strong>A Solução:</strong> Um assistente virtual que coleta dados do cliente, tira dúvidas básicas e gera uma prévia de orçamento em PDF automaticamente.
+                </p>
+                <span class="tag-tech border-cyan-500/30 text-cyan-300">Em Breve: Integração & Chatbot</span>
+            </div>
+
+            <div class="spotlight-card p-6 rounded-2xl border-t-4 border-t-purple-500">
+                <div class="text-4xl mb-4">📂</div>
+                <h3 class="text-lg font-bold text-white mb-2 relative z-10">Portal do Cliente (Autoatendimento)</h3>
+                <p class="text-xs text-slate-400 mb-4 leading-relaxed relative z-10">
+                    <strong>O Problema:</strong> Cliente ligando para pedir 2ª via de boleto ou nota fiscal.
+                    <br><strong>A Solução:</strong> Uma área web segura onde o próprio cliente faz login, baixa suas NFe's e visualiza o status dos seus serviços.
+                </p>
+                <span class="tag-tech border-purple-500/30 text-purple-300">Em Breve: Web App</span>
+            </div>
+        </div>
+    </div>
+</section>
+
 <footer class="py-20 px-6 text-center border-t border-white/5 bg-gradient-to-b from-transparent to-purple-900/10 backdrop-blur-sm">
     <div class="reveal max-w-3xl mx-auto">
-        <h2 class="text-3xl md:text-5xl font-black mb-8 tracking-tight text-white">Pronta para transformar seu negócio?</h2>
+        <h2 class="text-3xl md:text-5xl font-black mb-8 tracking-tight text-white">Vamos construir algo juntos?</h2>
         <p class="text-slate-400 mb-10 text-sm md:text-base">
-            Se você busca uma profissional que entenda tanto de código quanto de fluxo de caixa, vamos conversar.
+            Seja para organizar suas finanças, criar seu site ou desenvolver um sistema, estou pronta para ajudar.
         </p>
         <div class="flex flex-wrap justify-center gap-6 text-xs font-bold tracking-widest uppercase">
             <a href="https://wa.me/5516988725256" target="_blank" class="px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-500 transition shadow-lg shadow-purple-900/40">WhatsApp</a>
@@ -427,7 +406,7 @@
             <a href="https://github.com/paloma-dias" target="_blank" class="px-6 py-3 border border-white/10 rounded-lg hover:bg-white/5 transition">GitHub</a>
         </div>
         <div class="mt-16 text-slate-600 text-[10px] tracking-widest uppercase">
-            © 2026 Paloma Amaral • Engineering & Strategy
+            © 2026 Paloma Amaral • Soluções Digitais
         </div>
     </div>
 </footer>
